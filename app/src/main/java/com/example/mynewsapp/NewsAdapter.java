@@ -38,13 +38,13 @@ public class NewsAdapter extends ArrayAdapter<News> {
         String section = currentNews.getSection();
         String url = currentNews.getUrl();
 
-        TextView titleView = (TextView) listItemView.findViewById(R.id.news_title);
+        TextView titleView = listItemView.findViewById(R.id.news_title);
         titleView.setText(title);
 
-        TextView sectionView = (TextView) listItemView.findViewById(R.id.news_section);
+        TextView sectionView = listItemView.findViewById(R.id.news_section);
         sectionView.setText(section);
 
-        TextView authorView = (TextView) listItemView.findViewById(R.id.news_author);
+        TextView authorView = listItemView.findViewById(R.id.news_author);
         authorView.setText(author);
 
         Date newsDate = null;
@@ -56,14 +56,14 @@ public class NewsAdapter extends ArrayAdapter<News> {
         }
 
         // Find the TextView with view ID date
-        TextView dateView = (TextView) listItemView.findViewById(R.id.date);
+        TextView dateView = listItemView.findViewById(R.id.date);
         // Format the date string (i.e. "Mar 3, 1984")
         String formattedDate = formatDate(newsDate);
         // Display the date of the current news in that TextView
         dateView.setText(formattedDate);
 
         // Find the TextView with view ID time
-        TextView timeView = (TextView) listItemView.findViewById(R.id.time);
+        TextView timeView = listItemView.findViewById(R.id.time);
         // Format the time string (i.e. "4:30PM")
         String formattedTime = formatTime(newsDate);
         // Display the time of the current news in that TextView

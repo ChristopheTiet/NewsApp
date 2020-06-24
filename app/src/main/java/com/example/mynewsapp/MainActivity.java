@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity
 
 
         // Find a reference to the {@link ListView} in the layout
-        ListView newsListView = (ListView) findViewById(R.id.list);
-        mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
+        ListView newsListView = findViewById(R.id.list);
+        mEmptyStateTextView = findViewById(R.id.empty_view);
         newsListView.setEmptyView(mEmptyStateTextView);
 
         mAdapter = new NewsAdapter(this, new ArrayList<News>());
