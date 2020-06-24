@@ -1,9 +1,7 @@
 package com.example.mynewsapp;
 
-import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
-
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -12,18 +10,21 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements androidx.loader.app.LoaderManager.LoaderCallbacks<List<News>> {
+public class MainActivity extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<List<News>> {
 
     public static final String LOG_TAG = MainActivity.class.getName();
     private static final String GARDIAN_REQUEST_URL =
-            "http://content.guardianapis.com/search?q=videogames&api-key=test";
+            "https://content.guardianapis.com/search?";
     private NewsAdapter mAdapter;
     private static final int NEWS_LOADER_ID = 1;
     private TextView mEmptyStateTextView;
@@ -35,8 +36,8 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
 
 
         // Find a reference to the {@link ListView} in the layout
-        ListView newsListView = (ListView) findViewById(R.id.list);
-        mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
+        ListView newsListView = findViewById(R.id.list);
+        mEmptyStateTextView = findViewById(R.id.empty_view);
         newsListView.setEmptyView(mEmptyStateTextView);
 
         mAdapter = new NewsAdapter(this, new ArrayList<News>());
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
 
         // If there is a network connection, fetch data
         if (networkInfo != null && networkInfo.isConnected()) {
-            android.app.LoaderManager loaderManager = getLoaderManager();
+            LoaderManager loaderManager = getSupportLoaderManager();
 
             // Initialize the loader. Pass in the int ID constant defined above and pass in null for
             // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
@@ -89,8 +90,9 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
         }
     }
 
+    @NonNull
     @Override
-    public androidx.loader.content.Loader onCreateLoader(int id, Bundle args) {
+    public Loader<List<News>> onCreateLoader(int id, Bundle args) {
         Uri baseUri = Uri.parse(GARDIAN_REQUEST_URL);
 
         // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it
@@ -115,8 +117,7 @@ public class MainActivity extends AppCompatActivity implements androidx.loader.a
     }
 
     @Override
-    public void onLoaderReset(androidx.loader.content.Loader loader) {
+    public void onLoaderReset(@NonNull Loader<List<News>> loader) {
         mAdapter.clear();
     }
-
 }
