@@ -1,5 +1,4 @@
-
-package com.example.android.newsapp;
+package com.example.mynewsapp;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,9 +13,6 @@ import java.util.List;
 
 
 public class NewsAdapter extends ArrayAdapter<News> {
-
-
-    private static final String LOCATION_SEPARATOR = " of ";
 
 
     public NewsAdapter(Context context, List<News> news) {
@@ -34,12 +30,12 @@ public class NewsAdapter extends ArrayAdapter<News> {
                     R.layout.news_list_item, parent, false);
         }
 
-        // Find the News at the given position in the list of News
+        // Find the news at the given position in the list of news
         News currentNews = getItem(position);
 
+        String author = currentNews.getAuthor();
         String title = currentNews.getTitle();
         String section = currentNews.getSection();
-        String author = currentNews.getAuthor();
         String url = currentNews.getUrl();
 
         TextView titleView = (TextView) listItemView.findViewById(R.id.news_title);
@@ -63,32 +59,25 @@ public class NewsAdapter extends ArrayAdapter<News> {
         TextView dateView = (TextView) listItemView.findViewById(R.id.date);
         // Format the date string (i.e. "Mar 3, 1984")
         String formattedDate = formatDate(newsDate);
-        // Display the date of the current News in that TextView
+        // Display the date of the current news in that TextView
         dateView.setText(formattedDate);
 
         // Find the TextView with view ID time
         TextView timeView = (TextView) listItemView.findViewById(R.id.time);
         // Format the time string (i.e. "4:30PM")
         String formattedTime = formatTime(newsDate);
-        // Display the time of the current News in that TextView
+        // Display the time of the current news in that TextView
         timeView.setText(formattedTime);
 
         // Return the list item view that is now showing the appropriate data
         return listItemView;
     }
 
-
-    /**
-     * Return the formatted date string (i.e. "Mar 3, 1984") from a Date object.
-     */
     private String formatDate(Date dateObject) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
         return dateFormat.format(dateObject);
     }
 
-    /**
-     * Return the formatted date string (i.e. "4:30 PM") from a Date object.
-     */
     private String formatTime(Date dateObject) {
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
         return timeFormat.format(dateObject);

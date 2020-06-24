@@ -43,7 +43,7 @@
                 android:ellipsize="end"
                 android:fontFamily="sans-serif-medium"
                 android:maxLines="1"
-                android:textColor="@color/textColorNewsAuthor"
+                android:textColor="@color/textColorNewsSection"
                 android:textSize="12sp"
                 android:layout_marginLeft="8dp"
                 tools:text="Author" />

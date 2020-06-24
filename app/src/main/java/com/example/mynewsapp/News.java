@@ -1,4 +1,4 @@
-package com.example.android.newsapp;
+package com.example.mynewsapp;
 
 public class News {
 

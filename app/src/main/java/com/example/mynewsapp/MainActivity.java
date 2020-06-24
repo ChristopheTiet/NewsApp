@@ -1,46 +1,29 @@
-/*
- * Copyright (C) 2016 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-package com.example.android.newsapp;
+package com.example.mynewsapp;
 
+import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.LoaderManager;
-import android.content.Loader;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.Loader;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
+public class MainActivity extends AppCompatActivity implements androidx.loader.app.LoaderManager.LoaderCallbacks<List<News>> {
 
     public static final String LOG_TAG = MainActivity.class.getName();
     private static final String GARDIAN_REQUEST_URL =
-            "http://content.guardianapis.com/search";
+            "http://content.guardianapis.com/search?q=videogames&api-key=test";
     private NewsAdapter mAdapter;
     private static final int NEWS_LOADER_ID = 1;
     private TextView mEmptyStateTextView;
@@ -71,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
                 Uri newsUri = Uri.parse(currentNews.getUrl());
 
-                // Create a new intent to view the News URI
+                // Create a new intent to view the news URI
                 Intent websiteIntent = new Intent(Intent.ACTION_VIEW, newsUri);
 
                 // Send the intent to launch a new activity
@@ -89,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         // If there is a network connection, fetch data
         if (networkInfo != null && networkInfo.isConnected()) {
-            LoaderManager loaderManager = getLoaderManager();
+            android.app.LoaderManager loaderManager = getLoaderManager();
 
             // Initialize the loader. Pass in the int ID constant defined above and pass in null for
             // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
@@ -107,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public Loader<List<News>> onCreateLoader(int id, Bundle args) {
+    public androidx.loader.content.Loader onCreateLoader(int id, Bundle args) {
         Uri baseUri = Uri.parse(GARDIAN_REQUEST_URL);
 
         // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it
@@ -121,8 +104,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
-
+    public void onLoadFinished(@NonNull Loader<List<News>> loader, List<News> news) {
         View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
         mAdapter.clear();
@@ -133,9 +115,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public void onLoaderReset(Loader<List<News>> loader) {
+    public void onLoaderReset(androidx.loader.content.Loader loader) {
         mAdapter.clear();
     }
-
 
 }

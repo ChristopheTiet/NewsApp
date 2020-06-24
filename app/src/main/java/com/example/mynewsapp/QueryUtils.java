@@ -1,12 +1,10 @@
-package com.example.android.newsapp;
+package com.example.mynewsapp;
 
 import android.text.TextUtils;
 import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,11 +15,10 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.android.newsapp.MainActivity.LOG_TAG;
+import static com.example.mynewsapp.MainActivity.LOG_TAG;
 
 /**
- * Helper methods related to requesting and receiving news data from The Guardian.
+ * Helper methods related to requesting and receiving news data from Guardian API.
  */
 public final class QueryUtils {
 
